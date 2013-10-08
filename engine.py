@@ -49,7 +49,8 @@ def setup_images():
             "Snitch": "Snitch.png",
             "SortingHat": "Sorting Hat.png",
             "Books": "books.png",
-            "Dirt": "Brown Block.png"
+            "Dirt": "Brown Block.png",
+            "Dementor": "Dementor.png"
             }
 
     for k,v in filenames.items():
@@ -238,9 +239,9 @@ def run():
     except AttributeError:
         print "No keyboard handler"
         pass
-        
+    
     # Set up the update clock
-    pyglet.clock.schedule_interval(update, 1/10.)
+    pyglet.clock.schedule_interval(update, 1/10.0)
     game.initialize()
     pyglet.app.run()
 
