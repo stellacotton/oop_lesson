@@ -19,42 +19,40 @@ class Hedge(GameElement):
     IMAGE = "GrassBlock"
     SOLID = True
 
-class Goblet(GameElement):
+class Acquireable(GameElement):
+    def interact(self, player):
+        player.inventory.append(self)
+        player.points += 10
+        GAME_BOARD.draw_msg("You just acquired an object! You have %d items and %d points!" % (len(player.inventory), player.points))
+
+class Goblet(Acquireable):
     IMAGE = "Goblet"
     SOLID = False
 
-class Cauldron(GameElement):
+class Cauldron(Acquireable):
     IMAGE = "Cauldron"
     SOLID = False    
 
-class Broom(GameElement):
+class Broom(Acquireable):
     IMAGE = "Broom"
     SOLID = False
 
-class Snitch(GameElement):
+class Snitch(Acquireable):
     IMAGE = "Snitch"
     SOLID = False
 
-class SortingHat(GameElement):
+class SortingHat(Acquireable):
     IMAGE = "SortingHat"
     SOLID = False
 
-class Glasses(GameElement):
+class Glasses(Acquireable):
     IMAGE = "Glasses"
     SOLID = False        
 
-class Books(GameElement):
+class Books(Acquireable):
     IMAGE = "Books"
-    SOLID = False        
+    SOLID = False 
 
-class Gem(GameElement):
-    IMAGE = "BlueGem"
-    SOLID = False
-
-    def interact(self, player):
-        player.inventory.append(self)
-        
-        GAME_BOARD.draw_msg("You just acquired a gem! You have %d items!" % (len(player.inventory)))
 
 class Character(GameElement):
     IMAGE = "Harry"
@@ -62,7 +60,7 @@ class Character(GameElement):
     def __init__(self):
         GameElement.__init__(self)
         self.inventory = []
-        self.points = []
+        self.points = 0
 
     def next_pos(self, direction):
         if direction == "up":
