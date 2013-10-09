@@ -51,7 +51,8 @@ def setup_images():
             "Books": "books.png",
             "Dirt": "Brown Block.png",
             "Dementor": "Dementor.png",
-            "Hedwig": "hedwig.png"
+            "Hedwig": "hedwig.png",
+            "Mist": "mist.png"
             }
 
     for k,v in filenames.items():

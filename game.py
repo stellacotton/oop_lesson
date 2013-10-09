@@ -106,35 +106,64 @@ class Hedwig(Acquireable):
 
 class Character(GameElement):
     IMAGE = "Harry"
-
+    
     def __init__(self):
         GameElement.__init__(self)
         self.inventory = []
         self.points = 0
+        self.reversed = 0
 
     def next_pos(self, direction):
-        if direction == "up":
-            if self.y - 1 == 0:
-                return (self.x, self.y)
-            else: 
-                return (self.x, self.y - 1)
-        elif direction == "down":
-            if self.y + 2 == GAME_HEIGHT:
-                return (self.x, self.y)
-            else:
-                return (self.x, self.y + 1)
-        elif direction == "left":
-            if self.x - 1 == 0:
-                return (self.x, self.y)
-            else:
-                return (self.x - 1, self.y)
-        elif direction == "right":
-            if self.x + 2 == GAME_WIDTH:
-                return (self.x, self.y)
-            else:
-                return (self.x + 1, self.y)
+        if self.reversed > 0:
+            self.reversed -= 1
+            if direction == "up":
+                if self.y + 1 == 0:
+                    return (self.x, self.y)
+                else: 
+                    return (self.x, self.y + 1)
+            elif direction == "down":
+                if self.y - 2 == GAME_HEIGHT:
+                    return (self.x, self.y)
+                else:
+                    return (self.x, self.y - 1)
+            elif direction == "left":
+                if self.x + 1 == 0:
+                    return (self.x, self.y)
+                else:
+                    return (self.x + 1, self.y)
+            elif direction == "right":
+                if self.x - 2 == GAME_WIDTH:
+                    return (self.x, self.y)
+                else:
+                    return (self.x - 1, self.y)
+        else:
+            if direction == "up":
+                if self.y - 1 == 0:
+                    return (self.x, self.y)
+                else: 
+                    return (self.x, self.y - 1)
+            elif direction == "down":
+                if self.y + 2 == GAME_HEIGHT:
+                    return (self.x, self.y)
+                else:
+                    return (self.x, self.y + 1)
+            elif direction == "left":
+                if self.x - 1 == 0:
+                    return (self.x, self.y)
+                else:
+                    return (self.x - 1, self.y)
+            elif direction == "right":
+                if self.x + 2 == GAME_WIDTH:
+                    return (self.x, self.y)
+                else:
+                    return (self.x + 1, self.y)
         return None
 
+class Mist(GameElement):
+    IMAGE = "Mist"
+    def interact(self, player):
+        player.reversed = 5
+        GAME_BOARD.draw_msg("You have entered a magical mist!")
 
 class Dementor(GameElement):
     IMAGE = "Dementor"
@@ -311,6 +340,10 @@ def initialize():
     hedwig = Hedwig()
     GAME_BOARD.register(hedwig)
     GAME_BOARD.set_el(10, 4, hedwig)
+
+    mist = Mist()
+    GAME_BOARD.register(mist)
+    GAME_BOARD.set_el(10, 7, mist)
 
 
 def keyboard_handler():
