@@ -97,6 +97,10 @@ class Glasses(Acquireable):
 
 class Books(Acquireable):
     IMAGE = "Books"
+    SOLID = False
+
+class Hedwig(Acquireable):
+    IMAGE = "Hedwig"
     SOLID = False 
 
 
@@ -137,7 +141,6 @@ class Dementor(GameElement):
 
     def __init__(self):
         GameElement.__init__(self)
-        # pyglet.clock.schedule_interval(self.move_char, 2.0)
         self.x = 5
         self.y = 5
         self.elapsed_time = 0
@@ -146,7 +149,7 @@ class Dementor(GameElement):
         self.elapsed_time += dt
         #print self.elapsed_time
 
-        if self.elapsed_time > 1:
+        if self.elapsed_time > 0.5:
             GAME_BOARD.del_el(self.x, self.y)
 
             direction_options = ["up", "down", "left", "right"]
@@ -158,24 +161,24 @@ class Dementor(GameElement):
             if direction == "up":
                 next_x = self.x
                 if self.y - 1 == 0:
-                    self.y = 1
+                    next_y = self.y
                 else:
                     next_y = self.y - 1
             elif direction == "down":
                 next_x = self.x 
-                if self.y + 1 == GAME_HEIGHT:
-                    self.y = 1
+                if self.y + 2 == GAME_HEIGHT:
+                    next_y = self.y
                 else:
                     next_y = self.y + 1                
             elif direction == "left":
                 if self.x - 1 == 0:
-                    self.x = 1
+                    next_x = self.x
                 else:
                     next_x = self.x - 1      
                 next_y = self.y
             elif direction == "right":
-                if self.x + 1 == GAME_WIDTH:
-                    self.x = 1
+                if self.x + 2 == GAME_WIDTH:
+                    next_x = self.x
                 else:
                     next_x = self.x + 1              
                 next_y = self.y        
@@ -199,6 +202,23 @@ class Dementor(GameElement):
 
 def initialize():
     """Put game initialization code here"""
+    dementor_position = [
+        (1, 1),
+        (5, 5)
+    ]
+
+    dementors = []
+
+    for pos in dementor_position:
+        dementor = Dementor()
+        GAME_BOARD.register(dementor)
+        GAME_BOARD.set_el(pos[0], pos[1], dementor)
+        dementors.append(dementor)
+
+    #hedges[-1].SOLID = False
+
+    #for hedge in hedges:
+    #    print hedge
 
     hedge_positions = [
         (2, 2),
@@ -251,11 +271,11 @@ def initialize():
     GAME_BOARD.set_el(10, 1, PLAYER)
     print PLAYER
 
-    global DEMENTOR
-    DEMENTOR = Dementor()
-    GAME_BOARD.register(DEMENTOR)
-    GAME_BOARD.set_el(5, 5, DEMENTOR)
-    print DEMENTOR
+    # global DEMENTOR
+    # DEMENTOR = Dementor()
+    # GAME_BOARD.register(DEMENTOR)
+    # GAME_BOARD.set_el(5, 5, DEMENTOR)
+    # print DEMENTOR
 
     GAME_BOARD.draw_msg("Harry, get the Tri-Wizard Cup!")
     # GAME_BOARD.erase_msg()
@@ -270,7 +290,7 @@ def initialize():
 
     broom = Broom()
     GAME_BOARD.register(broom)
-    GAME_BOARD.set_el(6, 1, broom)
+    GAME_BOARD.set_el(8, 2, broom)
 
     snitch = Snitch()
     GAME_BOARD.register(snitch)
@@ -287,6 +307,10 @@ def initialize():
     goblet = Goblet()
     GAME_BOARD.register(goblet)
     GAME_BOARD.set_el(1, 8, goblet)
+
+    hedwig = Hedwig()
+    GAME_BOARD.register(hedwig)
+    GAME_BOARD.set_el(10, 4, hedwig)
 
 
 def keyboard_handler():

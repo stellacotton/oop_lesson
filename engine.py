@@ -4,7 +4,7 @@ import pyglet
 from pyglet.window import key
 from core import GameElement
 
-SCREEN_X = 1280
+SCREEN_X = 1200
 SCREEN_Y = 800
 
 game_window = pyglet.window.Window(SCREEN_X, SCREEN_Y)
@@ -50,7 +50,8 @@ def setup_images():
             "SortingHat": "Sorting Hat.png",
             "Books": "books.png",
             "Dirt": "Brown Block.png",
-            "Dementor": "Dementor.png"
+            "Dementor": "Dementor.png",
+            "Hedwig": "hedwig.png"
             }
 
     for k,v in filenames.items():
