@@ -343,7 +343,7 @@ def initialize():
 
     mist = Mist()
     GAME_BOARD.register(mist)
-    GAME_BOARD.set_el(10, 7, mist)
+    GAME_BOARD.set_el(1, 6, mist)
 
 
 def keyboard_handler():
